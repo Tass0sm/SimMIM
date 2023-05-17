@@ -18,8 +18,8 @@ import torch.distributed as dist
 from timm.utils import AverageMeter
 
 from config import get_config
-from models import build_model
-from data import build_loader
+from simmim.models import build_model
+from simmim.data import build_loader
 from lr_scheduler import build_scheduler
 from optimizer import build_optimizer
 from logger import create_logger
