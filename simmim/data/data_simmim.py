@@ -46,7 +46,7 @@ class MaskGenerator:
 
 
 class SimMIMTransform:
-    def __init__(self, config):
+    def __init__(self, input_size, mask_patch_size, model_patch_size, mask_ratio):
         # self.transform_img = T.Compose([
         #     # T.Lambda(lambda img: img.convert('RGB') if img.mode != 'RGB' else img),
         #     # T.RandomResizedCrop(config.DATA.IMG_SIZE, scale=(0.67, 1.), ratio=(3. / 4., 4. / 3.)),
@@ -55,18 +55,11 @@ class SimMIMTransform:
         #     # T.Normalize(mean=torch.tensor(IMAGENET_DEFAULT_MEAN),std=torch.tensor(IMAGENET_DEFAULT_STD)),
         # ])
  
-        if config.MODEL.TYPE == 'swin':
-            model_patch_size=config.MODEL.SWIN.PATCH_SIZE
-        elif config.MODEL.TYPE == 'vit':
-            model_patch_size=config.MODEL.VIT.PATCH_SIZE
-        else:
-            raise NotImplementedError
-
         self.mask_generator = MaskGenerator(
-            input_size=config.DATA.IMG_SIZE,
-            mask_patch_size=config.DATA.MASK_PATCH_SIZE,
+            input_size=input_size,
+            mask_patch_size=mask_patch_size,
             model_patch_size=model_patch_size,
-            mask_ratio=config.DATA.MASK_RATIO,
+            mask_ratio=mask_ratio
         )
 
     def __call__(self, img):
